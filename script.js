@@ -223,56 +223,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
     function shareResult(username, vibe, desc) {
-      console.log('Sharing:', username, vibe, desc);
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.width = 1080;
-        canvas.height = 1080;
-        const ctx = canvas.getContext('2d');
-  
-        const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
-        grad.addColorStop(0, '#008080');
-        grad.addColorStop(0.5, '#FF6F61');
-        grad.addColorStop(1, '#FFD700');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 1080, 1080);
-  
-        ctx.font = '60px "Great Vibes"';
-        ctx.fillStyle = 'white';
-        ctx.textAlign = 'center';
-        ctx.fillText(`${username}, You’re a`, 540, 350);
-        ctx.font = '80px "Great Vibes"';
-        ctx.fillText(vibe, 540, 450);
-        ctx.font = '30px Montserrat';
-        wrapText(ctx, desc, 540, 500, 800, 40);
-  
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-        ctx.lineWidth = 20;
-        ctx.strokeRect(10, 10, 1060, 1060);
-  
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = `${username}_${vibe}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-  
-        if (navigator.share) {
-          canvas.toBlob(blob => {
-            const file = new File([blob], `${username}_${vibe}.png`, { type: 'image/png' });
-            navigator.share({
-              files: [file],
-              title: `${username}, ${vibe}`,
-              text: `${desc} Unmask your #SoulVibes at nwaforfranklin.github.io/soulvibes! #PSPSScale #FaithJourney`
-            }).catch(err => console.error('Share failed:', err));
-          }, 'image/png');
+        console.log('Sharing:', username, vibe, desc); // Debug ash
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 1080;
+          canvas.height = 1080;
+          const ctx = canvas.getContext('2d');
+      
+          // Gradient forge
+          const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+          grad.addColorStop(0, '#008080');
+          grad.addColorStop(0.5, '#FF6F61');
+          grad.addColorStop(1, '#FFD700');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, 1080, 1080);
+      
+          // Text flame
+          ctx.font = '60px "Great Vibes"';
+          ctx.fillStyle = 'white';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${username}, You’re a`, 540, 350);
+          ctx.font = '80px "Great Vibes"';
+          ctx.fillText(vibe, 540, 450);
+          ctx.font = '30px Montserrat';
+          wrapText(ctx, desc, 540, 500, 800, 40);
+      
+          // Iridescent staff
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+          ctx.lineWidth = 20;
+          ctx.strokeRect(10, 10, 1060, 1060);
+      
+          // Download ash
+          const dataUrl = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = `${username}_${vibe}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      
+          // Mobile share spark
+          if (navigator.share) {
+            canvas.toBlob(blob => {
+              const file = new File([blob], `${username}_${vibe}.png`, { type: 'image/png' });
+              navigator.share({
+                files: [file],
+                title: `${username}, ${vibe}`,
+                text: `${desc} Unmask your #SoulVibes at nwaforfranklin.github.io/soulvibes! #PSPSScale #FaithJourney`
+              }).catch(err => console.error('Share failed:', err));
+            }, 'image/png');
+          }
+        } catch (err) {
+          console.error('Forge faltered:', err);
+          alert('The flame faltered—check console or try another browser.');
         }
-      } catch (err) {
-        console.error('Forge faltered:', err);
-        alert('The flame faltered—check console or try another browser.');
       }
-    }
   
     function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
       const words = text.split(' ');
