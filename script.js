@@ -99,6 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 0;
   
     const startBtn = document.getElementById('start-btn');
+    startBtn.textContent = quizData[currentLang].start;
+    document.getElementById('language').addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      startBtn.textContent = quizData[currentLang].start;
+    });
+  
     startBtn.addEventListener('click', () => {
       username = document.getElementById('username').value || 'Seeker';
       currentLang = document.getElementById('language').value;
@@ -130,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       const totalPages = quizData[currentLang].dimensions.length;
       document.getElementById('progress').textContent = `Page ${currentPage + 1} of ${totalPages}`;
+      document.getElementById('submit-btn').textContent = quizData[currentLang].reveal;
       updateButtons();
     }
   
@@ -168,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const form = e.target;
       const scores = {
-        p: Array.from(form.querySelectorAll('[name^="p"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5,
-        s: Array.from(form.querySelectorAll('[name^="s"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5,
+        p: Array.from(form.querySelectorAll('[name^="ph"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5,
+        s: Array.from(form.querySelectorAll('[name^="sc"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5,
         psych: Array.from(form.querySelectorAll('[name^="ps"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5,
         sp: Array.from(form.querySelectorAll('[name^="sp"]')).map(input => parseInt(input.value)).reduce((a, b) => a + b) / 5
       };
@@ -216,45 +223,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
     function shareResult(username, vibe, desc) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1080;
-      const ctx = canvas.getContext('2d');
+      console.log('Sharing:', username, vibe, desc);
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;
+        canvas.height = 1080;
+        const ctx = canvas.getContext('2d');
   
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
-      grad.addColorStop(0, '#008080');
-      grad.addColorStop(0.5, '#FF6F61');
-      grad.addColorStop(1, '#FFD700');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1080);
+        const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+        grad.addColorStop(0, '#008080');
+        grad.addColorStop(0.5, '#FF6F61');
+        grad.addColorStop(1, '#FFD700');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1080, 1080);
   
-      ctx.font = '60px "Great Vibes"';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${username}, You’re a`, 540, 350);
-      ctx.font = '80px "Great Vibes"';
-      ctx.fillText(vibe, 540, 450);
-      ctx.font = '30px Montserrat';
-      wrapText(ctx, desc, 540, 500, 800, 40);
+        ctx.font = '60px "Great Vibes"';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${username}, You’re a`, 540, 350);
+        ctx.font = '80px "Great Vibes"';
+        ctx.fillText(vibe, 540, 450);
+        ctx.font = '30px Montserrat';
+        wrapText(ctx, desc, 540, 500, 800, 40);
   
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-      ctx.lineWidth = 20;
-      ctx.strokeRect(10, 10, 1060, 1060);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 20;
+        ctx.strokeRect(10, 10, 1060, 1060);
   
-      const link = document.createElement('a');
-      link.download = `${vibe}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = `${username}_${vibe}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
   
-      if (navigator.share) {
-        canvas.toBlob(blob => {
-          const file = new File([blob], `${vibe}.png`, { type: 'image/png' });
-          navigator.share({
-            files: [file],
-            title: vibe,
-            text: `${username}, ${desc} Unmask your #SoulVibes at soulvibestest.com! #PSPSScale #FaithJourney`
-          }).catch(err => console.log('Share failed:', err));
-        });
+        if (navigator.share) {
+          canvas.toBlob(blob => {
+            const file = new File([blob], `${username}_${vibe}.png`, { type: 'image/png' });
+            navigator.share({
+              files: [file],
+              title: `${username}, ${vibe}`,
+              text: `${desc} Unmask your #SoulVibes at nwaforfranklin.github.io/soulvibes! #PSPSScale #FaithJourney`
+            }).catch(err => console.error('Share failed:', err));
+          }, 'image/png');
+        }
+      } catch (err) {
+        console.error('Forge faltered:', err);
+        alert('The flame faltered—check console or try another browser.');
       }
     }
   
