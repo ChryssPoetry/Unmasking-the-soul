@@ -5,15 +5,12 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
   }
   
   .container {
     padding: 40px;
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
   }
   
   .title {
@@ -23,14 +20,14 @@ body {
     margin-bottom: 40px;
   }
   
-  .screen {
+  .screen, .quiz-container {
     background: rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   }
   
-  .animate-input {
+  .input-field {
     display: block;
     margin: 20px auto;
     padding: 10px;
@@ -42,20 +39,16 @@ body {
     width: 80%;
   }
   
-  .quiz-container {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  }
-  
   .page {
     display: none;
   }
   
   .page.active {
     display: block;
-    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  .dimension {
+    margin-bottom: 30px;
   }
   
   .dimension h2 {
@@ -66,7 +59,6 @@ body {
   
   .question {
     margin: 15px 0;
-    position: relative;
   }
   
   .question p {
@@ -82,9 +74,8 @@ body {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     outline: none;
-    transition: background 0.3s ease;
-    display: block;
     margin: 0 auto;
+    display: block;
   }
   
   .slider::-webkit-slider-thumb {
@@ -103,7 +94,7 @@ body {
   
   .progress {
     margin: 20px 0;
-    font-size: 1em;
+    font-size: 1.2em;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   }
   
@@ -116,13 +107,11 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 10px;
   }
   
   .nav-btn:hover, .submit-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 111, 97, 0.8);
+    background: #ff8c7a;
   }
   
   .result {
@@ -137,4 +126,18 @@ body {
     margin-bottom: 10px;
   }
   
-  /* Animations unchanged */
+  .result button {
+    background: #008080;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .result button:hover {
+    background: #009999;
+  }
+  
