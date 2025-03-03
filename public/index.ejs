@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#SoulVibes PSPS Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great_Vibes&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <a href="/" class="nav-link active">Home</a>
+            <a href="/about" class="nav-link">About</a>
+        </nav>
+
+        <h1 class="title animate__animated animate__fadeIn">Unmask Your Faith</h1>
+        <div id="start-screen" class="screen animate__animated animate__fadeIn">
+            <div class="choice-container">
+                <h2 class="animate__animated animate__fadeInUp">How would you like to take the quiz?</h2>
+                <div class="choice-buttons">
+                    <button id="with-church-btn" class="choice-btn animate__animated animate__fadeInLeft">
+                        <span class="icon">🏛️</span>
+                        <span class="text">With My Church</span>
+                    </button>
+                    <button id="alone-btn" class="choice-btn animate__animated animate__fadeInRight">
+                        <span class="icon">🌟</span>
+                        <span class="text">Take Alone</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Church Selection Section -->
+        <div id="church-section" class="screen" style="display: none;">
+            <div class="church-selection">
+                <h2 class="animate__animated animate__fadeIn">Select Your Church</h2>
+                <form id="church-select-form" class="animate__animated animate__fadeInUp">
+                    <div class="form-group">
+                        <label for="username">Your Name</label>
+                        <input type="text" id="username" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="church-select">Choose Your Church</label>
+                        <select id="church-select" class="input-field" required>
+                            <option value="">Select a church...</option>
+                        </select>
+                    </div>
+                    <div class="church-actions">
+                        <a href="/church/register" class="register-link">Register New Church</a>
+                        <button type="submit" class="submit-btn">Start Quiz</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz-section" class="screen" style="display: none;">
+            <form id="pspsQuiz" class="quiz-container">
+                <div id="pages">
+                    <% questions.forEach((question, index) => { %>
+                        <div class="quiz-page" style="display: none;">
+                            <div class="dimension" data-dimension="<%= question.category %>">
+                                <h2><%= question.category %></h2>
+                                <div class="questions-container">
+                                    <div class="question">
+                                        <p><%= question.question %></p>
+                                        <div class="options">
+                                            <% question.options.forEach(option => { %>
+                                                <button type="button"
+                                                        class="option-btn"
+                                                        onclick="handleAnswer(<%= question.id %>, <%= option.value %>)"
+                                                        data-value="<%= option.value %>">
+                                                    <%= option.text %>
+                                                </button>
+                                            <% }); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class="navigation">
+                    <button type="button" id="prev-btn" class="nav-btn">Previous</button>
+                    <button type="button" id="next-btn" class="nav-btn">Next</button>
+                    <button type="submit" id="submit-btn" class="nav-btn" style="display: none;">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="screen" style="display: none;">
+            <div class="results-container">
+                <h2>Your SoulVibes Results</h2>
+                <div class="scores">
+                    <div class="score-card">
+                        <h3>Soul Score</h3>
+                        <div id="soul-score" class="score-value">0</div>
+                    </div>
+                    <div class="score-card">
+                        <h3>Spirit Score</h3>
+                        <div id="spirit-score" class="score-value">0</div>
+                    </div>
+                    <div class="score-card">
+                        <h3>Body Score</h3>
+                        <div id="body-score" class="score-value">0</div>
+                    </div>
+                </div>
+                <div class="vibe-result">
+                    <h3>Your Vibe</h3>
+                    <div id="vibe-result" class="vibe-text"></div>
+                </div>
+                <div class="action-buttons">
+                    <button onclick="window.location.reload()" class="action-btn">Take Quiz Again</button>
+                    <button onclick="shareResults()" class="action-btn">Share Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="/sounds/click.mp3" preload="auto"></audio>
+    <audio id="transitionSound" src="/sounds/transition.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="/js/questions.js"></script>
+    <script src="/js/church.js"></script>
+    <script src="/js/quiz.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html> 

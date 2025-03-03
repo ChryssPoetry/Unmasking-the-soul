@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}#SoulVibes PSPS Test{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great_Vibes&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a>
+            <a href="/about" class="nav-link {% if active_page == 'about' %}active{% endif %}">About</a>
+            {% if isLoggedIn %}
+            <a href="/dashboard" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="/logout" class="nav-link">Logout</a>
+            {% endif %}
+        </nav>
+
+        <h1 class="title animate__animated animate__fadeIn">{% block main_title %}Unmask Your Faith{% endblock %}</h1>
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <audio id="clickSound" src="/sounds/click.mp3" preload="auto"></audio>
+    <audio id="transitionSound" src="/sounds/transition.mp3" preload="auto"></audio>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

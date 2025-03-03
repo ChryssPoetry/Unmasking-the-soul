@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Church - SoulVibes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great_Vibes&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/about" class="nav-link">About</a>
+        </nav>
+
+        <h1 class="title animate__animated animate__fadeIn">Register Your Church</h1>
+        <div class="church-registration-container animate__animated animate__fadeIn">
+            <form id="church-registration-form" class="animate__animated animate__fadeInUp">
+                <div class="form-group">
+                    <label for="church-name">Church Name</label>
+                    <input type="text" id="church-name" class="input-field" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-name">Admin Name</label>
+                    <input type="text" id="admin-name" class="input-field" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-email">Admin Email</label>
+                    <input type="email" id="admin-email" class="input-field" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Admin Password</label>
+                    <input type="password" id="admin-password" class="input-field" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Register Church</button>
+                    <a href="/" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="/sounds/click.mp3" preload="auto"></audio>
+    <audio id="transitionSound" src="/sounds/transition.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="/js/church.js"></script>
+</body>
+</html> 
